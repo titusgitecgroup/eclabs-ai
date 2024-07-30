@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exploring Conversational Time Tracking through Whisper, spaCy and Mirascope</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container">
+      <a class="navbar-brand text-primary" href="#">ECLabs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-5 mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="exploring-conversational-time-tracking.html">Blog</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="home-banner bg-light p-4 mb-3">
+      <div class="d-flex">
+        <img src="images/banner-1.jpg" alt="" class="img-fluid me-4 rounded">
+        <div>
+          <h1>
+            Exploring Conversational Time Tracking through Whisper, spaCy and Mirascope
+          </h1>
+          <p class="text-secondary fs-5">
+            Our objective is to be able to extract specific entity information from audio file or text using Whisper, spaCy and Mirascope.io.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="table-contents p-4 border rounded mb-3">
+      <h6 class="mb-3">Table of contents</h6>
+
+      <ul class="m-0">
+        <li class=""><a href="#">Quick Intro</a></li>
+        <li class=""><a href="#">Prerequisites</a></li>
+        <li class=""><a href="#">Models</a></li>
+        <li class="mb-0"><a href="#">Functions</a></li>
+      </ul>
+
+    </div>
+    <div>
+
+      <div class="mb-4">
+        <h3>Quick Intro</h3>
+        <div class="mb-3">Our objective is to be able to extract specific entity information from audio file or text using Whisper, spaCy and Mirascope.io.</div>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Whisper:</div>
+              It is an automatic speech recognition (ASR) system developed by OpenAI. It is designed to transcribe spoken language into written text with high accuracy
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Mirascope.io:</div>
+              It is a platform that leverages the power of OpenAI's Whisper models to provide transcription and voice-to-text services and here it is used to extract information for TaskDetails entity from the text.
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">spaCy:</div>
+              It is an open-source library for Natural Language Processing (NLP) in Python.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="mb-4">
+        <h3>Pre-requisites</h3>
+
+        <div>The following prerequisites needed to be installed or created before getting into it</div>
+        <ul>
+          <li>Python 3.9x version</li>
+          <li>A valid OpenAI API key</li>
+          <li>Mirascope</li>
+          <li>spaCy</li>
+        </ul>
+      </div>
+
+      <div class="home-models mb-4">
+        <!-- Models -->
+        <h3>Models</h3>
+        <h5 class="ms-4">Task</h5>
+        <div class="ms-3">
+          <p class="ps-3">
+            Task class is a data model that represents a task with various attributes such as task description, duration, start and end dates, and times. It uses the pydantic.BaseModel as its base class, which provides data validation and serialization capabilities.
+          </p>
+        </div>
+
+        <!-- class definition -->
+
+        <div class="ps-4">
+          <ul>
+            <li>
+              Class Definition
+              <ul>
+                <li>
+                  Class Inheritance
+                  <ul class="ps-4">
+                    <li>
+                      Task inherits from BaseModel: This makes Task a pydantic model, which provides automatic data validation, serialization, and parsing capabilities.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+            </li>
+          </ul>
+        </div>
+
+        <ul class="ms-4">
+          <li>
+            Class Attributes
+
+            <ul class="">
+              <li class="mb-2">
+                <span class="fw-medium">task:</span>
+                <p class="ps-3 mb-0">A string attribute that stores the description of the task, its default value is an empty string.</p>
+              </li>
+
+              <li class="mb-2">
+                <span class="fw-medium">duration:</span>
+                <p class="ps-3 mb-0"> An optional string attribute that stores the duration of the task, its default value is an empty string.</p>
+              </li>
+
+              <li class="mb-2">
+                <span class="fw-medium">startDate:</span>
+                <p class="ps-3 mb-0">An optional date attribute that stores the start date of the task, its default value is `None`.</p>
+              </li>
+
+              <li class="mb-2">
+                <span class="fw-medium">startTime:</span>
+                <p class="ps-3 mb-0">An optional string attribute that stores the start time of the task, its default value is an empty string.</p>
+              </li>
+
+              <li class="mb-2">
+                <span class="fw-medium">endDate:</span>
+                <p class="ps-3 mb-0">An optional date attribute that stores the end date of the task, its default value is `None`.</p>
+              </li>
+
+              <li class="mb-2">
+                <span class="fw-medium">endTime:</span>
+                <p class="ps-3 mb-0">An optional string attribute that stores the end time of the task, its default value is an empty string.</p>
+              </li>
+
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="ms-4">
+          <li>
+            <div>Explanation</div>
+            <ul class="ms-4">
+              <li class="mb-2">
+                Creating an Instance
+                <ul class="mb-0">
+                  <li>An instance of Task is created with specific values for its attributes.</li>
+                </ul>
+              </li>
+              <li class="mb-2">
+                Output
+                <ul class="mb-0">
+                  <li>The task details are printed, showing the attribute values in a structured format.</li>
+                </ul>
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+
+
+        <div class="code-block p-3 border bg-dark rounded mb-4">
+          <code>
+            class Task(BaseModel):
+            task: str = ''
+            duration: Optional[str] = ''
+            startDate: Optional[date] = None
+            startTime: Optional[str] = ''
+            endDate: Optional[date] = None
+            endTime: Optional[str] = ''
+          </code>
+        </div>
+
+        <!-- Task details -->
+
+        <h5 class="ms-4">Task Details</h5>
+        <div class="ms-4">
+          <p class="ps-3">
+            TaskDetails class is a data model that encapsulates a list of tasks along with the input text used to generate these tasks. It uses the pydantic.BaseModel as its base class, which provides data validation and serialization capabilities.
+          </p>
+        </div>
+
+        <ul class="">
+          <li class="mb-2">
+            <div class="">
+              Detailed Explanation
+            </div>
+            <ul class="">
+              <li>
+                <div>Class Inheritance</div>
+                <ul>
+                  <li class="">
+                    TaskDetails inherits from BaseModel: This makes TaskDetails a pydantic model, which provides automatic data validation, serialization, and parsing capabilities.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+          </li>
+          <li class="mb-2">
+            <div>Class Attributes</div>
+            <ul>
+              <li>
+                <div>input:</div>
+                <ul>
+                  <li>An optional string attribute that stores the input text used to generate the tasks.</li>
+                  <li>Default value: an empty string.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <ul>
+              <li>
+                <div>tasks:</div>
+                <ul>
+                  <li>An optional list attribute that stores a list of `Task` objects.</li>
+                  <li>Default value: `None`.</li>
+                </ul>
+              </li>
+            </ul>
+
+          </li>
+          <li>
+            <div>Explanation</div>
+            <ul>
+              <li>
+                <div>Creating Task Instances</div>
+                <ul>
+                  <li>Two instances of Task are created with specific values for their attributes.</li>
+                </ul>
+              </li>
+              <li>
+                <div>Creating an Instance of TaskDetails</div>
+                <ul>
+                  <li>An instance of TaskDetails is created with the input text and the list of tasks created above.</li>
+                </ul>
+              </li>
+              <li>
+                <div>Output</div>
+                <ul>
+                  <li>The task details are printed, showing the input text and the list of tasks in a structured format.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="code-block p-3 border bg-dark rounded mb-4">
+          <code>
+            class TaskDetails(BaseModel):
+            input: Optional[str] = ''
+            tasks: Optional[List[Task]] = None
+          </code>
+        </div>
+
+        <!-- Taskextractor -->
+
+        <h5 class="ms-4">TaskExtractor</h5>
+
+        <ul class="ms-3">
+          <li>
+            TaskExtractor class is designed to create a prompt for extracting task entities from a text conversation using a specified prompt template. It inherits from a generic OpenAIExtractor class and utilizes a prompt template with placeholders for task details and the current date. The class
+            attributes include the task text and the current date in ISO format.
+
+            <ul>
+              <li>
+                <div>Class Definition</div>
+                <ul>
+                  <li>
+                    <div>Class Inheritance</div>
+                    <ul>
+                      <li>
+                        TaskExtractor inherits from OpenAIExtractor[T]: This implies that OpenAIExtractor is a generic class, and TaskExtractor is a specialized version of it, likely tailored for extracting task entities.
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <div>Class Attributes</div>
+                    <ul>
+                      <li>
+                        <div>prompt_template:</div>
+                        <ul>
+                          <li>A string attribute that stores the description of the task, its default value is an empty string.</li>
+                          <li>It includes placeholders {task} and {today}.</li>
+                          <li>
+                            The prompt instructs to convert the provided text conversation into task entities and sets the task's end date based on specific keywords.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div>task:</div>
+                        <ul>
+                          <li>A string attribute intended to store the text conversation from which tasks will be extracted.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div>today:</div>
+                        <ul>
+                          <li>A string attribute that stores the current date in ISO format.</li>
+                          <li>
+                            It uses the function dateInISOFormat(today()), which converts the current date to an ISO string format.
+                          </li>
+                        </ul>
+                      </li>
+
+                    </ul>
+                  </li>
+
+                  <li>
+                    <div>Explanation</div>
+
+                    <ul>
+                      <li>
+                        <div>dateInISOFormat and today Functions</div>
+                        <ul>
+                          <li>dateInISOFormat(date): Converts a date object to an ISO format string.</li>
+                          <li>today(): Returns the current date and time.</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="code-block p-3 border bg-dark rounded mb-4">
+          <code>
+            class TaskExtractor(OpenAIExtractor[T]):
+            prompt_template = """
+            Please provide the text conversation you'd like to convert into task entities:
+            {task}
+  
+            and set task's end date to {today}, if the task's end date is 'today' or task has 'just' 
+            keyword or task has 'start' keyword.
+            """    
+          
+            task: str
+            today: str = dateInISOFormat(today())
+          </code>
+        </div>
+        <div>
+
+          <!-- Task info -->
+
+          <h5 class="ms-4">Task Info</h5>
+          <ul>
+            <li>
+              <div>
+                TaskInfo class is a data model that stores information related to tasks. It uses the pydantic.
+                BaseModel as its base class, ensuring data validation and serialization capabilities.
+              </div>
+
+              <ul>
+                <li>
+                  <div>Class Definition</div>
+
+                  <ul>
+                    <li>
+                      <div>Class Inheritance</div>
+                      <ul>
+                        <li>
+                          TaskInfo inherits from BaseModel: This makes TaskInfo a pydantic model, which provides automatic data validation, serialization, and parsing capabilities.
+                        </li>
+
+                      </ul>
+                    </li>
+
+                    <li>
+                      <div>Class Attributes</div>
+                      <ul>
+                        <li>
+                          <div>text:</div>
+                          <ul>
+                            <li>A string attribute that stores the text of the task, its default value is an empty string</li>
+                          </ul>
+                        </li>
+
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+
+          <div>
+
+            <dl>
+              <dd>gptModel:</dd>
+              <dt>A string attribute that stores the model identifier for the GPT model being used, its default value is 'gpt-4o'.</dt>
+            </dl>
+
+            <dl>
+              <dd>useActionVerbs:</dd>
+              <dt>A boolean attribute that indicates whether to use action verbs for task extraction, its default value is False.</dt>
+            </dl>
+
+            <dl>
+              <dd>actionVerbs:</dd>
+              <dt>A list of strings that stores action verbs to be used for task extraction, its default value is an empty list.</dt>
+            </dl>
+          </div>
+
+          <h5>Methods</h5>
+
+          <h6>serialize</h6>
+
+          <ul>
+            <li>This method serializes the TaskInfo object into a dictionary.</li>
+            <li>It captures the attributes of the TaskInfo object and returns them in a dictionary format.</li>
+            <li>If an exception occurs during serialization, it raises an exception with an appropriate error message.</li>
+          </ul>
+
+          <h5>Explanation</h5>
+
+          <h6>Creating an Instance</h6>
+
+          <ul>
+            <li>An instance of TaskInfo is created with specific values for its attributes.</li>
+          </ul>
+
+          <h6>Serialization</h6>
+
+          <ul>
+            <li>The serialize method is called on the task_info instance.</li>
+            <li>This converts the instance's attributes into a dictionary format.</li>
+          </ul>
+
+          <h6>Output</h6>
+          <ul>
+            <li>The serialized dictionary is printed, showing the attribute values in a structured format.</li>
+          </ul>
+
+          <div>
+            <code>
+              class TaskInfo(BaseModel):
+      text:str = ''    
+      gptModel:str = 'gpt-4o'
+      useActionVerbs:bool = False
+      actionVerbs:List[str] = []
+  
+      def serialize(self):
+          try:           
+              taskInfo = {"text": self.text,
+                          "gptModel" : self.gptModel,
+                          "useActionVerbs" : self.useActionVerbs,
+                          "actionVerbs": self.actionVerbs}
+              return taskInfo
+          except Exception as e:
+              raise Exception(f"Unable to serialize: {e}")
+            </code>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div>
+
+        <h3>Functions</h3>
+        <ul>
+          <li>
+            <dl>
+              <dd>extract_text_from_audio:</dd>
+              <dt>This function takes a file path as a string input and returns a string (the transcribed text).</dt>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dd>split_tasks_using_spacy:</dd>
+              <dt>This function takes a text input and a list of action verbs. It uses spaCy, a natural language processing library, to split the text into individual tasks based on the presence of these action verbs in the sentences.</dt>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dd>extract_task_entities_from_text:</dd>
+              <dt>This function is designed to process a TaskInfo object and extract detailed tasks using OpenAI's language models, leveraging both specific action verbs (using spaCy) and general text processing.</dt>
+            </dl>
+          </li>
+        </ul>
+
+
+        <h5>extract_text_from_audio</h5>
+
+        <ul>
+          <li>
+            <dl>
+              <dd>Function Definition</dd>
+              <dt>extract_text_from_audio function takes a file path as a string input and returns a string (the transcribed text).</dt>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dd>Initialize OpenAI Client:</dd>
+              <dt>client = openai.OpenAI(api_key=OPENAI_API_KEY, project=OPENAI_PROJECT_ID) - This initializes the OpenAI client using the provided API key and project ID.</dt>
+            </dl>
+          </li>
+          <li>
+            <div>Handle the Audio File and Transcription</div>
+            <dl>
+              <dd>File Handling</dd>
+              <dt>with open(file_path, "rb") as audio_file: - This opens the audio file in binary read mode ("rb"). The with statement ensures that the file is properly closed after it is used, even if an error occurs.</dt>
+            </dl>
+            <dl>
+              <dd>Create Transcription Request</dd>
+              <dt>transcription = client.audio.transcriptions.create(model="whisper-1", file=audio_file) - This sends the audio file to the OpenAI API for transcription using the whisper-1 model.</dt>
+            </dl>
+
+            <dl>
+              <dd>Return Transcribed Text</dd>
+              <dt>return transcription.text - This returns the transcribed text from the API response.</dt>
+            </dl>
+          </li>
+
+        </ul>
+
+        <div>
+          <code>
+            def extract_text_from_audio(file_path) -> str:
+    try:
+      # Initialize the OpenAI client
+      client = OpenAI(api_key=OPENAI_API_KEY, project=OPENAI_PROJECT_ID)
+      
+      # Open the audio file in binary read mode
+      with open(file_path, "rb") as audio_file:
+      
+      # Create a transcription request
+      transcription = client.audio.transcriptions.create(
+                          model="whisper-1",
+                          file=audio_file
+                      )
+      
+      # Return the transcribed text
+      return transcription.text	
+    except Exception as e:
+      raise Exception (f"Exception in extract_text_from_audio >> {str(e)}")
+          </code>
+        </div>
+
+
+
+
+
+
+        split_tasks_using_spacy
+
+        <ul>
+          <li>
+            split_tasks_using_spacy function takes a text input and a list of action verbs.
+            It uses spaCy, a natural language processing library, to split the text into individual tasks based on the presence of these action verbs in the sentences.
+          </li>
+          <li>
+            <div>
+              Function Definition
+              def split_tasks_using_spacy(txt: str, action_verbs: List[str]) - Defines the function which takes two parameters:
+            </div>
+
+            <ul>
+              <li> txt: A string containing the input text.</li>
+              <li> action_verbs: A list of action verbs used to identify task-related sentences.
+              </li>
+            </ul>
+
+          </li>
+          <li>
+            <div>Load spaCy Model</div>
+
+            <ul>
+              <li>
+                nlp = spacy.load("en_core_web_sm") - Loads the English core small model from spaCy, which contains pre-trained pipelines for various NLP tasks.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div>Process the Text</div>
+            <ul>
+              <li>doc = nlp(txt) - Uses the spaCy model to process the input text, creating a Doc object that contains linguistic annotations.</li>
+
+            </ul>
+          </li>
+          <li>
+            <div>Initialize Tasks List</div>
+
+            <ul>
+              <li>
+                tasks: list[str] = [] - Initializes an empty list to store the extracted tasks.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div>for each Iteration</div>
+
+            <ul>
+              <li>
+                <div>Iterate Over Sentences:</div>
+                <div>
+                  <div>for sent in doc.sents: - Iterates over the sentences in the processed text (Doc object).</div>
+                  <div>
+                    Process Each Sentence:
+                    <div>sent_doc = nlp(sent.text.strip()) - Processes each sentence individually.</div>
+                  </div>
+                  <div>
+                    <div>
+                      Check for Action Verbs:
+                      <div>for token in sent_doc: - Iterates over the tokens (words) in the sentence.</div>
+                      <div>
+
+                        if action_verbs: - Checks if the list of action verbs is provided.
+                        <div>if token.lemma_ in action_verbs: - Checks if the lemma (base form) of the token is in the list of action verbs.
+                        </div>
+                        <div>
+                          tasks.append(sent.text.strip()) - If an action verb is found, adds the sentence to the tasks list.
+                        </div>
+                        <div>break - Breaks out of the loop once an action verb is found in the sentence. </div>
+
+                      </div>
+                      <div>
+                        else:
+
+                        <div>
+                          - If no action verbs are provided, adds all sentences to the tasks list.
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div>Return the Tasks List</div>
+                <div>return tasks - Returns the list of extracted tasks.</div>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+
+        <div>
+          <code>
+            from typing import List
+  import spacy
+  
+  # Load the spaCy model
+  nlp = spacy.load("en_core_web_sm")
+  
+  def split_tasks_using_spacy(txt:str, action_verbs:List[str]):
+      try:
+          tasks:list[str] = []  
+          doc = nlp(txt)          
+  
+          # Extract tasks
+          for sent in doc.sents:           
+              # Parse the sentence
+              sent_doc = nlp(sent.text.strip())
+              for token in sent_doc:
+                  # Check if the token is an actionable verb and the root of the sentence
+                  if action_verbs:
+                      if token.lemma_ in action_verbs: #and token.dep_ == "ROOT":
+                          tasks.append(sent.text.strip())
+                          break
+                  else:
+                      tasks.append(sent.text.strip())
+      except Exception as e:
+          raise Exception(f"Exception in split_tasks_using_spacy >> {str(e)}")
+  
+          </code>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+.container-hero {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--bs-blue) !important;
+}
+
+.table-contents a {
+  color: var(--bs-gray-600);
+}
+
+.table-contents li {
+  margin-block: .5rem;
+}
