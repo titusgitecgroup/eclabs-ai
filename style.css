@@ -1,4 +1,31 @@
-.container-hero {
+body {
+  font-size: 1.13rem;
+  line-height: 1.8
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+code {
+  color: var(--bs-gray-400);
+  font-size: 1.13rem;
+
+  .keyword {
+    color: var(--bs-orange);
+  }
+
+  .start-text {
+    color: var(--bs-purple);
+  }
+
+  .comment {
+    color: var(--bs-gray-600);
+  }
+}
+
+.container-hero,
+.container-blog {
   max-width: 960px;
   margin-inline: auto;
 }
@@ -19,4 +46,12 @@ a:focus {
 
 .table-contents li {
   margin-block: .5rem;
+}
+
+.name-initial {
+  color: var(--bs-white);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--bs-purple);
 }
