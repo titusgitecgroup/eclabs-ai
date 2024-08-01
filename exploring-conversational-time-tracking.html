@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exploring Conversational Time Tracking through Whisper, spaCy and Mirascope</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -40,15 +41,54 @@
       <h5 class="mb-3">Table of contents</h5>
       <ul class="list-unstyled fs-7 mb-0">
         <li class=""><a href="#intro">Introduction</a></li>
-        <li class=""><a href="#pre_req">Prerequisites</a></li>
-        <li class=""><a href="#models">Models</a></li>
-        <li class="mb-0"><a href="#functions">Functions</a></li>
+        <li class="">
+          <a href="#pre_req">Prerequisites</a>
+
+          <ul class="list-styles list-unstyled ms-3">
+            <li>
+              <a href="#whisper_loc">
+                <i class="bi bi-chevron-right"></i>
+                Whisper
+              </a>
+            </li>
+            <li><a href="#spacy_loc">
+                <i class="bi bi-chevron-right"></i>
+                spaCy
+              </a>
+            </li>
+            <li><a href="#mirascope_loc">
+                <i class="bi bi-chevron-right"></i>
+                Mirascope.io
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="mb-0">
+          <a href="#functions">Functions</a>
+
+          <ul class="list-styles list-unstyled ms-3">
+            <li>
+              <a href="#ex_f_a">
+                <i class="bi bi-chevron-right"></i>
+                extract_text_from_audio
+              </a>
+            </li>
+            <li><a href="#sp_t_sp">
+                <i class="bi bi-chevron-right"></i>
+                split_tasks_using_spacy
+              </a></li>
+            <li><a href="#ex_f_t">
+                <i class="bi bi-chevron-right"></i>
+                extract_task_entities_from_text
+              </a></li>
+          </ul>
+        </li>
       </ul>
     </div>
     <div>
 
       <div id="intro" class="pt-3">
-        <h3>Introduction</h3>
+        <h2 class="mb-3">Introduction</h2>
         <p>
           In today's fast-paced business environment, extracting specific task entity information from audio files or text documents is crucial for enhancing productivity and decision-making. By integrating Whisper, spaCy, and [Mirascope.io](http://mirascope.io/), organizations can create a robust
           system for accurately identifying and processing relevant data from various sources. Whisper offers advanced speech recognition capabilities, converting spoken words into text with high precision. spaCy, a powerful natural language processing library, further analyzes and extracts key
@@ -60,21 +100,21 @@
         </p>
       </div>
 
-      <div id="pre_req" class="pt-3 pb-2">
-        <h3>Prerequisites</h3>
+      <div id="pre_req" class="pt-3 pb-2 mb-4">
+        <h2 class="mb-4">Prerequisites</h2>
 
-        <div>Before getting into it, the following prerequisites needed to be installed or created</div>
-        <ul>
-          <li>Python 3.9x version</li>
-          <li>A valid OpenAI API key</li>
-          <li>Mirascope</li>
-          <li>spaCy</li>
+        <div class="mb-2">Before getting into it, the following prerequisites needed to be installed or created</div>
+        <ul class="">
+          <li class="">Python 3.9x version</li>
+          <li class="">A valid OpenAI API key</li>
+          <li class="">Mirascope</li>
+          <li class="">spaCy</li>
         </ul>
       </div>
 
-      <div class="mb-4">
+      <div class="mb-4 pb-4">
         <p class="p-2 bg-light fw-medium">Lets first understand the core packages and their characteristics before we delve into the code behind it.</p>
-        <div class="whisper">
+        <div id="whisper_loc" class="whisper pt-2">
           <h4>Whisper</h4>
           <p>
             Whisper, developed by OpenAI, is an advanced automatic speech recognition (ASR) system designed to transcribe spoken language into written text. The process begins with the input of an audio file, which Whisper processes to convert the spoken words into a text format. This transcribed
@@ -83,14 +123,14 @@
             applications, such as meeting transcriptions, customer service, and content analysis.
           </p>
         </div>
-        <div class="spacy">
+        <div id="spacy_loc" class="spacy pt-4">
           <h4>spaCy</h4>
           <p>
             SpaCy is a powerful and versatile natural language processing (NLP) library in Python, providing tools for various NLP tasks, including Named Entity Recognition (NER). NER can identify entities such as names, dates, organizations, and more within a text. Once audio is transcribed by
             Whisper, the resulting text can be fed into spaCy. By utilizing spaCy’s NER capabilities, specific entities can be extracted from the transcribed text.
           </p>
         </div>
-        <div class="mirascope">
+        <div id="mirascope_loc" class="mirascope pt-4">
           <h4>Mirascope.io</h4>
           <p class="m-0">
             Mirascope.io is a platform designed to visualize and analyze data, particularly for more advanced analytics and insights. After entities are extracted using spaCy, Mirascope.io can be used to extract task entities from these entities. Additionally, Mirascope.io aids in performing more
@@ -99,39 +139,49 @@
         </div>
       </div>
 
-      <p class="p-2 bg-light fw-medium">Lets look at three main functions that performs our desired actions.</p>
+      <p class="p-2 bg-light fw-medium">
+        Lets look at three main functions that performs our desired actions.
+      </p>
 
       <div class="main-functions pb-4">
-        <ol class="m-0 p-0">
-          <li>
+        <ul class="m-0 p-0 list-unstyled">
+          <li id="ex_f_a">
             <h4>extract_text_from_audio</h4>
-            <p>
+            <p class="mt-4">
               This function takes a file path as a string input and returns a string (the transcribed text)
             </p>
 
-            <div class="code-block p-3 border bg-dark rounded mb-4">
+            <div class="code-block p-4 border bg-dark rounded mb-4">
               <code>
-                <div class="start-text">def</div> extract_text_from_audio(file_path) -> <span class="keyword">str</span>: <br>
-	              <span class="start-text">try:</span><br>
-                <div class="comment"># Initialize the OpenAI client</div>
-                client = OpenAI(api_key=OPENAI_API_KEY, project=OPENAI_PROJECT_ID)<br><br>
-		
-                <div class="comment"># Open the audio file in binary read mode</div>
-                with <span class="keyword">open</span>(file_path, "<span class="keyword">rb</span>") as audio_file:<br><br>
+                <div class="text-highlight">def</div> extract_text_from_audio(file_path) -> <span class="keyword">str</span>: <br>
+                  <div class="text-indent">
+                    <span class="text-highlight ">try:</span><br>
+                    <div class="comment ">Initialize the OpenAI client</div>
+                    client = OpenAI(api_key=OPENAI_API_KEY, project=OPENAI_PROJECT_ID)<br><br>
+                    <div class="comment">Open the audio file in binary read mode</div>
+                    with <span class="keyword">open</span>(file_path, "<span class="keyword">rb</span>") as audio_file:
+                  </div>
+                  <br>
 		
                 <div class="comment"># Create a transcription request</div>
                 transcription = client.audio.transcriptions.create(
-                model="<span class="keyword">whisper-1</span>",
-                <span class="keyword">file</span>=audio_file)<br><br>
+                <div class="text-indent">
+                  model="<span class="keyword">whisper-1</span>",
+                  <span class="keyword">file</span>=audio_file)
+                </div>
+                <br>
 		
-              <div class="comment"># Return the transcribed text</div>
-              <span class="start-text">return</span> transcription.text	<br>
-              <span class="start-text">except</span> Exception as e: <br>
-              <span class="start-text">raise</span> Exception (<span class="keyword">f"Exception in extract_text_from_audio >></span> {str(e)}<span class="keyword">"</span>)
+              <div class="text-indent">
+                <div class="comment"># Return the transcribed text</div>
+                <span class="text-highlight">return</span> transcription.text	<br>
+              </div>
+
+              <span class="text-highlight">except</span> Exception as e: <br>
+              <span class="text-highlight text-indent">raise</span> Exception (<span class="keyword">f"Exception in extract_text_from_audio >></span> {str(e)}<span class="keyword">"</span>)
               </code>
             </div>
 
-            <ol>
+            <ul>
               <li>
                 <div>Initialize OpenAI Client:</div>
                 <p>
@@ -155,47 +205,52 @@
                   This sends the audio file to the OpenAI API for transcription using the whisper-1 model.
                 </p>
               </li>
-            </ol>
+            </ul>
           </li>
 
-          <li>
-            <h4>split_tasks_using_spacy</h4>
+          <li id="sp_t_sp" class="pt-4">
+            <h4><code class="code-sentence fs-5">split_tasks_using_spacy</code> Function Explanation:</h4>
 
             <p>
-              This function takes a text input and a list of action verbs. It uses spaCy, a natural language processing library, to split the text into individual tasks based on the presence of these action verbs in the sentences.
+              This <code class="code-sentence">split_tasks_using_spacy</code> function takes a text input and a list of action verbs. It uses spaCy, a natural language processing library, to split the text into individual tasks based on the presence of these action verbs in the sentences.
             </p>
 
             <div class="code-block p-3 border bg-dark rounded mb-4">
               <code>
-                <span class="start-text">from</span> typing <span class="start-text">import</span> List
-                <span class="start-text">import</span> spacy <br> <br>
+                <span class="text-highlight">from</span> typing <span class="text-highlight">import</span> List
+                <span class="text-highlight">import</span> spacy <br> <br>
 
                 <div class="comment"># Load the spaCy model</div>
                 nlp = spacy.load("<span class="keyword">en_core_web_sm</span>") <br><br>
 
-                <span class="start-text">def</span> split_tasks_using_spacy(txt:<span class="keyword">str</span>, action_verbs:List[<span class="keyword">str</span>]):
-                  <span class="start-text">try</span>:
-                    tasks:<span class="keyword">list</span>[<span class="keyword">str</span>] = []
-                    doc = nlp(txt) <br><br>
+                <span class="text-highlight">def</span> split_tasks_using_spacy(txt:<span class="keyword">str</span>, action_verbs:List[<span class="keyword">str</span>]): <br>
+                  <span class="text-highlight text-indent">try</span>: <br>
+                    <div class="text-indent">
+                      tasks:<span class="keyword">list</span>[<span class="keyword">str</span>] = [] <br>
+                      doc = nlp(txt)
+                    </div> 
+                    <br>
 
-                    <div class="comment"># Extract tasks</div>
-
-                    <span class="start-text">for</span> sent <span class="start-text">in</span> doc.sents:
-
-                      <div class="comment"># Parse the sentence</div>
-
-                      sent_doc = nlp(sent.text.strip()) <br>
-                      <span class="start-text">for</span> token <span class="start-text">in</span> sent_doc: <br>
-                        <div class="comment"># Check if the token is an actionable verb and the root of the sentence</div>
-                      <span class="start-text">if</span> action_verbs: <br>
-                        <span class="start-text">if</span> token.lemma_ <span class="start-text">in</span> action_verbs: <span class="comment">#and token.dep_ == "ROOT":</span> <br>
-                          tasks.append(sent.text.strip()) <br>
-                          <span class="start-text">break</span> <br>
-                      <span class="start-text">else</span>: <br>
-                      tasks.append(sent.text.strip()) <br>
-                <span class="start-text">except</span> Exception <span class="start-text">as</span> e: <br>
-                  <span class="start-text">raise</span> Exception(<span class="keyword">f"Exception in split_tasks_using_spacy >></span> {<span class="keyword">str</span>(e)}<span class="keyword">"</span>) <br>
-                <span class="start-text">return</span> tasks
+                    <div class="text-indent">
+                      <div class="comment"># Extract tasks</div>
+                      <span class="text-highlight">for</span> sent <span class="text-highlight">in</span> doc.sents: <br>
+                        <div class="text-indent">
+                          <span class="comment"># Parse the sentence</span>
+                          sent_doc = nlp(sent.text.strip()) <br>
+                          <span class="text-highlight">for</span> token <span class="text-highlight">in</span> sent_doc:
+                         <br>
+                          <span class="comment"># Check if the token is an actionable verb and the root of the sentence</span> <br>
+                        <span class="text-highlight">if</span> action_verbs: <br>
+                          <span class="text-highlight text-indent">if</span> token.lemma_ <span class="text-highlight">in</span> action_verbs: <span class="comment">#and token.dep_ == "ROOT":</span> <br>
+                            <span class="text-indent">tasks.append(sent.text.strip())</span> <br>
+                            <span class="text-highlight text-indent">break</span> <br>
+                        <span class="text-highlight">else</span>: <br>
+                        <span class="text-indent">tasks.append(sent.text.strip())</span> <br>
+                      </div>
+                            <span class="text-highlight">except</span> Exception <span class="text-highlight">as</span> e: <br>
+                              <span class="text-highlight text-indent">raise</span> Exception(<span class="keyword">f"Exception in split_tasks_using_spacy >></span> {<span class="keyword">str</span>(e)}<span class="keyword">"</span>) <br>
+                            <span class="text-highlight">return</span> tasks
+                    </div>
               </code>
             </div>
 
@@ -245,7 +300,7 @@
           </li>
 
 
-          <li>
+          <li id="ex_f_t" class="pt-4">
             <h4>extract_task_entities_from_text</h4>
 
             <p>
@@ -254,33 +309,33 @@
 
             <div class="code-block p-3 border bg-dark rounded mb-4">
               <code>
-                <span class="start-text">def</span> extract_task_entities_from_text(taskInfo:TaskInfo) -> TaskDetails: <br>
-                  <span class="start-text">try</span>:	<br>
-                    tasks_found:<span class="keyword">bool</span> = <span class="start-text">False</span><br>
+                <span class="text-highlight">def</span> extract_task_entities_from_text(taskInfo:TaskInfo) -> TaskDetails: <br>
+                  <span class="text-highlight">try</span>:	<br>
+                    tasks_found:<span class="keyword">bool</span> = <span class="text-highlight">False</span><br>
                     taskDetails = TaskDetails() <br>
                     taskDetails.<span class="keyword">input</span> = taskInfo <br>
                     taskDetails.tasks = [] <br>
                     call_params=OpenAICallParams(model=taskInfo.gptModel) <br>
                     TaskExtractor.api_key = OPENAI_API_KEY <br> <br>
                     
-                    <span class="start-text">if</span> taskInfo.useActionVerbs <span class="start-text">and</span> <span class="keyword">hasattr</span>(taskInfo, '<span class="keyword">actionVerbs</span>') <span class="start-text">and</span> taskInfo.actionVerbs:
+                    <span class="text-highlight">if</span> taskInfo.useActionVerbs <span class="text-highlight">and</span> <span class="keyword">hasattr</span>(taskInfo, '<span class="keyword">actionVerbs</span>') <span class="text-highlight">and</span> taskInfo.actionVerbs:
                       tasks = split_tasks_using_spacy(taskInfo.text, taskInfo.actionVerbs) <br>
-                      <span class="start-text">if</span> tasks: <br>
-                        tasks_found = <span class="start-text">True</span> <br>
-                        <span class="start-text">for</span> _task <span class="start-text">in</span> tasks: <br>
+                      <span class="text-highlight">if</span> tasks: <br>
+                        tasks_found = <span class="text-highlight">True</span> <br>
+                        <span class="text-highlight">for</span> _task <span class="text-highlight">in</span> tasks: <br>
                           task = TaskExtractor(extract_schema=Task, task=_task, call_params=call_params).extract() <br>
                           taskDetails.tasks.append(task)
 
                           <br><br>
                           
-                    <span class="start-text">if not</span> tasks_found: <br>
+                    <span class="text-highlight">if not</span> tasks_found: <br>
                       taskDetails = TaskExtractor(extract_schema=TaskDetails, task=taskInfo.text, call_params=call_params).extract()
 
                       <br><br>
                     
-                    <span class="start-text">return</span> taskDetails <br>
-                  <span class="start-text">except</span> Exception <span class="start-text">as</span> e: <br>
-                    <span class="start-text">raise</span> Exception (<span class="keyword">f"Exception in extract_task_entities_from_text >></span> {<span class="keyword">str</span>(e)}<span class="keyword">"</span>)
+                    <span class="text-highlight">return</span> taskDetails <br>
+                  <span class="text-highlight">except</span> Exception <span class="text-highlight">as</span> e: <br>
+                    <span class="text-highlight">raise</span> Exception (<span class="keyword">f"Exception in extract_task_entities_from_text >></span> {<span class="keyword">str</span>(e)}<span class="keyword">"</span>)
               </code>
 
             </div>
@@ -293,10 +348,10 @@
 
                 <div class="code-block p-3 border bg-dark rounded mb-4">
                   <code>
-                    <span class="start-text">class</span> TaskInfo(BaseModel): <br>
+                    <span class="text-highlight">class</span> TaskInfo(BaseModel): <br>
                         text:<span class="keyword">str</span> = <span class="keyword">''</span>    <br>
                         gptModel:<span class="keyword">str</span> = <span class="keyword">'gpt-4o'</span> <br>
-                        useActionVerbs:<span class="keyword">bool</span> = <span class="start-text">False</span> <br>
+                        useActionVerbs:<span class="keyword">bool</span> = <span class="text-highlight">False</span> <br>
                         actionVerbs:List[<span class="keyword">str</span>] = [] 
                   </code>
                 </div>
@@ -312,9 +367,9 @@
                 <div>Create and initialize the properties of TaskDetails object</div>
                 <div class="code-block p-3 border bg-dark rounded mb-4">
                   <code>
-                    <span class="start-text">class</span> TaskDetails(BaseModel): <br>
+                    <span class="text-highlight">class</span> TaskDetails(BaseModel): <br>
                     <span class="keyword">input</span>: Optional[<span class="keyword">str</span>] = <span class="keyword">''</span> <br>
-                    tasks: Optional[List[Task]] = <span class="start-text">None</span>
+                    tasks: Optional[List[Task]] = <span class="text-highlight">None</span>
                   </code>
                 </div>
 
@@ -324,12 +379,12 @@
 
                 <div class="code-block p-3 border bg-dark rounded mb-4">
                   <code>
-                    <span class="start-text">class</span> Task(BaseModel): <br>
+                    <span class="text-highlight">class</span> Task(BaseModel): <br>
                     task: <span class="keyword">str</span> = <span class="keyword">''</span> <br>
                     duration: Optional[<span class="keyword">str</span>] = <span class="keyword">''</span> <br>
-                    startDate: Optional[date] = <span class="start-text">None</span> <br>
+                    startDate: Optional[date] = <span class="text-highlight">None</span> <br>
                     startTime: Optional[<span class="keyword">str</span>] = '' <br>
-                    endDate: Optional[date] = <span class="start-text">None</span> <br>
+                    endDate: Optional[date] = <span class="text-highlight">None</span> <br>
                     endTime: Optional[<span class="keyword">str</span>] = ''
                   </code>
                 </div>
@@ -340,7 +395,7 @@
 
                 <div class="code-block p-3 border bg-dark rounded mb-4">
                   <code>
-                    <span class="start-text">class</span> TaskExtractor(OpenAIExtractor[T]):
+                    <span class="text-highlight">class</span> TaskExtractor(OpenAIExtractor[T]):
                     prompt_template = <span class="keyword">"""</span> <br>
                     <span class="keyword">
                       Please provide the text conversation you'd like to convert into task entities: <br>
@@ -409,7 +464,7 @@
           </li>
 
 
-        </ol>
+        </ul>
       </div>
 
 
@@ -428,6 +483,12 @@
       </div>
     </div>
   </div>
+
+  <span id="go_top" onclick="topFunction()">
+    <i class="bi bi-chevron-up"></i>
+  </span>
+
+  <script src="scroll-to-top.js" defer></script>
 </body>
 
 </html>
