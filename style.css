@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 body {
   font-size: 1.13rem;
   line-height: 1.8
@@ -20,7 +24,7 @@ code {
   }
 
   .text-highlight {
-    color: var(--bs-purple);
+    color: var(--bs-pink);
   }
 
   .comment {
@@ -28,27 +32,53 @@ code {
   }
 }
 
-.container-hero,
+.container-blog,
 .container-blog {
   max-width: 960px;
   margin-inline: auto;
 }
 
-.container-hero>a {
+.container-blog>a {
   padding: 1rem;
 }
 
-.container-hero>a:hover {
+.container-blog>a:hover {
   background-color: var(--bs-light);
 }
 
-.container-hero>a:hover * {
+.container-blog>a:hover * {
   color: var(--bs-gray-800);
+}
+
+.container-blog>a:hover span.name-initial {
+  color: var(--bs-white);
+}
+
+.container-blog {
+  h2 {
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+  }
+}
+
+.blog-two-lines {
+  line-height: 1.5;
 }
 
 a {
   color: currentColor;
   text-decoration: none;
+}
+
+a.navbar-brand {
+  font-family: "Syncopate", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  color: var(--bs-black);
+  background: var(--bs-white);
+  padding: 8px;
+  border-radius: 5px;
 }
 
 a:hover,
@@ -63,7 +93,7 @@ ul.list-styles li {
 }
 
 .table-contents a {
-  color: var(--bs-gray-600);
+  color: var(--bs-gray-700);
 }
 
 .table-contents>li {
