@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exploring Conversational Time Tracking through Whisper, spaCy and Mirascope</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="style.css">
 
@@ -15,7 +16,8 @@
   <nav class="navbar navbar-expand-lg bg-dark mb-3" data-bs-theme="dark">
     <div class="container-sm">
       <a class="navbar-brand " href="index.html">ecLabs</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -91,13 +93,21 @@
       <div id="intro" class="pt-3">
         <h2 class="mb-3">Introduction</h2>
         <p>
-          In today's fast-paced business environment, extracting specific task entity information from audio files or text documents is crucial for enhancing productivity and decision-making. By integrating Whisper, spaCy, and [Mirascope.io](http://mirascope.io/), organizations can create a robust
-          system for accurately identifying and processing relevant data from various sources. Whisper offers advanced speech recognition capabilities, converting spoken words into text with high precision. spaCy, a powerful natural language processing library, further analyzes and extracts key
-          entities from the text. [Mirascope.io](http://mirascope.io/) provides a user-friendly interface for managing and visualizing the extracted information.
+          In today's fast-paced business environment, extracting specific task entity information from audio files or
+          text documents is crucial for enhancing productivity and decision-making. By integrating Whisper, spaCy, and
+          [Mirascope.io](http://mirascope.io/), organizations can create a robust
+          system for accurately identifying and processing relevant data from various sources. Whisper offers advanced
+          speech recognition capabilities, converting spoken words into text with high precision. spaCy, a powerful
+          natural language processing library, further analyzes and extracts key
+          entities from the text. [Mirascope.io](http://mirascope.io/) provides a user-friendly interface for managing
+          and visualizing the extracted information.
         </p>
         <p>
-          This integration is invaluable for businesses across industries, enabling automated meeting transcriptions, streamlined customer support, and efficient data entry processes. By leveraging these technologies, companies can improve data accuracy, reduce manual workload, and gain actionable
-          insights, ultimately driving better business outcomes. In this article, we delve into the technical aspects and real-world applications of this integrated approach.
+          This integration is invaluable for businesses across industries, enabling automated meeting transcriptions,
+          streamlined customer support, and efficient data entry processes. By leveraging these technologies, companies
+          can improve data accuracy, reduce manual workload, and gain actionable
+          insights, ultimately driving better business outcomes. In this article, we delve into the technical aspects
+          and real-world applications of this integrated approach.
         </p>
       </div>
 
@@ -114,27 +124,37 @@
       </div>
 
       <div class="mb-4 pb-4">
-        <p class="p-2 bg-light fw-medium">Lets first understand the core packages and their characteristics before we delve into the code behind it.</p>
+        <p class="p-2 bg-light fw-medium">Lets first understand the core packages and their characteristics before we
+          delve into the code behind it.</p>
         <div id="whisper_loc" class="whisper pt-2">
           <h4>Whisper</h4>
           <p>
-            Whisper, developed by OpenAI, is an advanced automatic speech recognition (ASR) system designed to transcribe spoken language into written text. The process begins with the input of an audio file, which Whisper processes to convert the spoken words into a text format. This transcribed
+            Whisper, developed by OpenAI, is an advanced automatic speech recognition (ASR) system designed to
+            transcribe spoken language into written text. The process begins with the input of an audio file, which
+            Whisper processes to convert the spoken words into a text format. This transcribed
             text
-            can then be used for further analysis, making it easier to identify and extract specific entities. Whisper's primary function is to facilitate the transformation of audio data into a textual form, enabling businesses to analyze and utilize spoken information more effectively in various
+            can then be used for further analysis, making it easier to identify and extract specific entities. Whisper's
+            primary function is to facilitate the transformation of audio data into a textual form, enabling businesses
+            to analyze and utilize spoken information more effectively in various
             applications, such as meeting transcriptions, customer service, and content analysis.
           </p>
         </div>
         <div id="spacy_loc" class="spacy pt-4">
           <h4>spaCy</h4>
           <p>
-            SpaCy is a powerful and versatile natural language processing (NLP) library in Python, providing tools for various NLP tasks, including Named Entity Recognition (NER). NER can identify entities such as names, dates, organizations, and more within a text. Once audio is transcribed by
-            Whisper, the resulting text can be fed into spaCy. By utilizing spaCy’s NER capabilities, specific entities can be extracted from the transcribed text.
+            SpaCy is a powerful and versatile natural language processing (NLP) library in Python, providing tools for
+            various NLP tasks, including Named Entity Recognition (NER). NER can identify entities such as names, dates,
+            organizations, and more within a text. Once audio is transcribed by
+            Whisper, the resulting text can be fed into spaCy. By utilizing spaCy’s NER capabilities, specific entities
+            can be extracted from the transcribed text.
           </p>
         </div>
         <div id="mirascope_loc" class="mirascope pt-4">
           <h4>Mirascope.io</h4>
           <p class="m-0">
-            Mirascope.io is a platform designed to visualize and analyze data, particularly for more advanced analytics and insights. After entities are extracted using spaCy, Mirascope.io can be used to extract task entities from these entities. Additionally, Mirascope.io aids in performing more
+            Mirascope.io is a platform designed to visualize and analyze data, particularly for more advanced analytics
+            and insights. After entities are extracted using spaCy, Mirascope.io can be used to extract task entities
+            from these entities. Additionally, Mirascope.io aids in performing more
             advanced analytics on the extracted data, offering deeper insights.
           </p>
         </div>
@@ -186,7 +206,8 @@
               <li>
                 <div>Initialize OpenAI Client:</div>
                 <p>
-                  <span class="fw-semibold">**client = openai.OpenAI(api_key=OPENAI_API_KEY, project=OPENAI_PROJECT_ID)**</span> - <br>
+                  <span class="fw-semibold">**client = openai.OpenAI(api_key=OPENAI_API_KEY,
+                    project=OPENAI_PROJECT_ID)**</span> - <br>
                   This line initializes the OpenAI client using the provided API key and project ID.
                 </p>
               </li>
@@ -195,13 +216,15 @@
                 <div>File Handling</div>
                 <div class="fw-semibold">with open(file_path, "rb") as audio_file: </div>
                 <p>
-                  This opens the audio file in binary read mode ("rb"). The with statement ensures that the file is properly closed after it is used, even if an error occurs.
+                  This opens the audio file in binary read mode ("rb"). The with statement ensures that the file is
+                  properly closed after it is used, even if an error occurs.
                 </p>
               </li>
 
               <li>
                 <div>Create Transcription Request</div>
-                <div class="fw-semibold">transcription = client.audio.transcriptions.create(model="whisper-1", file=audio_file) - </div>
+                <div class="fw-semibold">transcription = client.audio.transcriptions.create(model="whisper-1",
+                  file=audio_file) - </div>
                 <p>
                   This sends the audio file to the OpenAI API for transcription using the whisper-1 model.
                 </p>
@@ -213,7 +236,9 @@
             <h4><code class="code-sentence fs-5">split_tasks_using_spacy</code> Function Explanation:</h4>
 
             <p>
-              This <code class="code-sentence">split_tasks_using_spacy</code> function takes a text input and a list of action verbs. It uses spaCy, a natural language processing library, to split the text into individual tasks based on the presence of these action verbs in the sentences.
+              This <code class="code-sentence">split_tasks_using_spacy</code> function takes a text input and a list of
+              action verbs. It uses spaCy, a natural language processing library, to split the text into individual
+              tasks based on the presence of these action verbs in the sentences.
             </p>
 
             <div class="code-block p-3 border bg-dark rounded mb-4">
@@ -259,14 +284,16 @@
               <li>
                 <div>Load spaCy Model</div>
                 <p>
-                  <span class="fw-medium">nlp = spacy.load("en_core_web_sm")</span> - Loads the English core small model from spaCy, which contains pre-trained pipelines for various NLP tasks.
+                  <span class="fw-medium">nlp = spacy.load("en_core_web_sm")</span> - Loads the English core small model
+                  from spaCy, which contains pre-trained pipelines for various NLP tasks.
                 </p>
               </li>
 
               <li>
                 <div>Process the Text</div>
                 <p>
-                  <span class="fw-medium">doc = nlp(txt)</span> - Uses the spaCy model to process the input text, creating a Doc object that contains linguistic annotations.
+                  <span class="fw-medium">doc = nlp(txt)</span> - Uses the spaCy model to process the input text,
+                  creating a Doc object that contains linguistic annotations.
                 </p>
               </li>
 
@@ -278,21 +305,27 @@
               <li>
                 <div>Iterates over the sentences in the doc (Doc object - processed text)</div>
                 <p>
-                  <span class="fw-medium">sent_doc = nlp(sent.text.strip())</span> - processes each sentence individually. <br>
+                  <span class="fw-medium">sent_doc = nlp(sent.text.strip())</span> - processes each sentence
+                  individually. <br>
 
                   Check for Action Verbs <br>
 
-                  <span class="fw-medium">for token in sent_doc:</span> - Iterates over the tokens (words) in the sentence. <br>
+                  <span class="fw-medium">for token in sent_doc:</span> - Iterates over the tokens (words) in the
+                  sentence. <br>
 
                   <span class="fw-medium">if action_verbs:</span> - Checks if the list of action verbs is provided. <br>
 
-                  <span class="fw-medium ps-2">if token.lemma_ in action_verbs:</span> - Checks if the lemma (base form) of the token is in the list of action verbs. <br>
+                  <span class="fw-medium ps-2">if token.lemma_ in action_verbs:</span> - Checks if the lemma (base form)
+                  of the token is in the list of action verbs. <br>
 
-                  <span class="fw-medium ps-4">tasks.append(sent.text.strip())</span> - If an action verb is found, adds the sentence to the tasks list. <br>
+                  <span class="fw-medium ps-4">tasks.append(sent.text.strip())</span> - If an action verb is found, adds
+                  the sentence to the tasks list. <br>
 
-                  <span class="fw-medium ps-4">break</span> - Breaks out of the loop once an action verb is found in the sentence. <br>
+                  <span class="fw-medium ps-4">break</span> - Breaks out of the loop once an action verb is found in the
+                  sentence. <br>
 
-                  <span class="fw-medium">else:</span> - If no action verbs are provided, adds all sentences to the tasks list. <br>
+                  <span class="fw-medium">else:</span> - If no action verbs are provided, adds all sentences to the
+                  tasks list. <br>
 
                   <span class="fw-medium ps-4">tasks.append(sent.text.strip())</span>
                 </p>
@@ -305,7 +338,8 @@
             <h4>extract_task_entities_from_text</h4>
 
             <p>
-              This function is designed to process a TaskInfo object and extract detailed tasks using OpenAI's language models, leveraging both specific action verbs (using spaCy) and general text processing.
+              This function is designed to process a TaskInfo object and extract detailed tasks using OpenAI's language
+              models, leveraging both specific action verbs (using spaCy) and general text processing.
             </p>
 
             <div class="code-block p-3 border bg-dark rounded mb-4">
@@ -358,8 +392,11 @@
                 </div>
 
                 <p>
-                  <span class="text-danger">TaskInfo</span> - stores all configuration related information such as <span class="fw-medium">text</span> (input), <span class="fw-medium">gptModel</span> (used by <span class="fw-medium">mirascope</span>), <span class="fw-medium">useActionVerbs</span>
-                  and <span class="fw-medium">actionVerbs</span> (used by <span class="fw-medium">spaCy</span>). It uses the pydantic.BaseModel as its base class, ensuring data validation and serialization capabilities.
+                  <span class="text-danger">TaskInfo</span> - stores all configuration related information such as <span
+                    class="fw-medium">text</span> (input), <span class="fw-medium">gptModel</span> (used by <span
+                    class="fw-medium">mirascope</span>), <span class="fw-medium">useActionVerbs</span>
+                  and <span class="fw-medium">actionVerbs</span> (used by <span class="fw-medium">spaCy</span>). It uses
+                  the pydantic.BaseModel as its base class, ensuring data validation and serialization capabilities.
                 </p>
               </li>
 
@@ -375,7 +412,9 @@
                 </div>
 
                 <p>
-                  <span class="text-danger">TaskDetails</span> - encapsulates a list of tasks along with the input text used to generate these tasks. It uses the <span class="text-danger">pydantic.BaseModel</span> as its base class, which provides data validation and serialization capabilities.
+                  <span class="text-danger">TaskDetails</span> - encapsulates a list of tasks along with the input text
+                  used to generate these tasks. It uses the <span class="text-danger">pydantic.BaseModel</span> as its
+                  base class, which provides data validation and serialization capabilities.
                 </p>
 
                 <div class="code-block p-3 border bg-dark rounded mb-4">
@@ -415,9 +454,12 @@
                 </div>
 
                 <p>
-                  <span class="text-danger">TaskExtractor</span> class is designed to create a prompt for extracting task entities from a text conversation using a specified prompt template. It inherits from a generic <span class="text-danger">OpenAIExtractor</span> class which is used for
+                  <span class="text-danger">TaskExtractor</span> class is designed to create a prompt for extracting
+                  task entities from a text conversation using a specified prompt template. It inherits from a generic
+                  <span class="text-danger">OpenAIExtractor</span> class which is used for
                   extracting structured information using OpenAI chat models like prompt
-                  template with placeholders for task details and the current date. The class attributes include the task text and the current date in ISO format.
+                  template with placeholders for task details and the current date. The class attributes include the
+                  task text and the current date in ISO format.
                 </p>
 
                 <div>Class Attributes</div>
@@ -425,7 +467,8 @@
                 <div class="ps-4">A multi-line string that serves as a template for the prompt.</div>
                 <div class="ps-4">It includes placeholders {task} and {today}.</div>
                 <div class="ps-4">
-                  The prompt instructs to convert the provided text conversation into task entities and sets the task's end date based on specific keywords.
+                  The prompt instructs to convert the provided text conversation into task entities and sets the task's
+                  end date based on specific keywords.
                 </div>
                 <div class="text-danger">task</div>
                 <div class="ps-4">
@@ -435,13 +478,16 @@
                 <p>
                   <span class="ps-4">A string attribute that stores the current date in ISO format.</span> <br>
 
-                  <span class="ps-4">It uses the function <span class="text-danger">dateInISOFormat(today())</span>, which converts the current date to an ISO string format.</span> <br>
+                  <span class="ps-4">It uses the function <span class="text-danger">dateInISOFormat(today())</span>,
+                    which converts the current date to an ISO string format.</span> <br>
 
                   Split Tasks from Text <br>
 
-                  Split tasks from text only if the <span class="fw-medium">TaskInfo</span> object is configured to use action verbs and it contains action verbs.
+                  Split tasks from text only if the <span class="fw-medium">TaskInfo</span> object is configured to use
+                  action verbs and it contains action verbs.
 
-                  tasks = <span class="fw-medium">split_tasks_using_spacy(taskInfo.text, taskInfo.actionVerbs)</span> Splits the input text into individual tasks using the provided action verbs.
+                  tasks = <span class="fw-medium">split_tasks_using_spacy(taskInfo.text, taskInfo.actionVerbs)</span>
+                  Splits the input text into individual tasks using the provided action verbs.
 
                   Checks if any tasks were found.
 
@@ -452,11 +498,14 @@
                     task = TaskExtractor(extract_schema=Task, task=_task, task=_task, call_params=call_params).extract()
                   </span> Uses TaskExtractor to process each task with the specified schema and call parameters.
 
-                  <span class="fw-medium">taskDetails.tasks.append(task)</span> - appends the extracted task to the taskDetails.tasks list.
+                  <span class="fw-medium">taskDetails.tasks.append(task)</span> - appends the extracted task to the
+                  taskDetails.tasks list.
 
-                  If no tasks were found, <span class="fw-medium">TaskExtractor</span> is used to extract tasks from the input text.
+                  If no tasks were found, <span class="fw-medium">TaskExtractor</span> is used to extract tasks from the
+                  input text.
 
-                  <span class="fw-medium">taskDetails = TaskExtractor(extract_schema=TaskDetails, task=taskInfo.text, call_params=call_params).extract()</span> - extracts TaskDetails directly from the input text.
+                  <span class="fw-medium">taskDetails = TaskExtractor(extract_schema=TaskDetails, task=taskInfo.text,
+                    call_params=call_params).extract()</span> - extracts TaskDetails directly from the input text.
 
 
                 </p>
@@ -473,17 +522,36 @@
         <h4>Conclusion</h4>
 
         <p>
-          Incorporating Whisper, spaCy, and Mirascope.io into a unified system offers businesses a powerful tool for extracting and analyzing task entity information from audio files and text documents. Whisper’s advanced speech recognition capabilities enable precise conversion of spoken language
-          into text, while spaCy’s robust NLP features allow for the detailed extraction of key entities. Mirascope.io further enhances this process by providing an intuitive platform for performing advanced analytics on the extracted data.
+          Incorporating Whisper, spaCy, and Mirascope.io into a unified system offers businesses a powerful tool for
+          extracting and analyzing task entity information from audio files and text documents. Whisper’s advanced
+          speech recognition capabilities enable precise conversion of spoken language
+          into text, while spaCy’s robust NLP features allow for the detailed extraction of key entities. Mirascope.io
+          further enhances this process by providing an intuitive platform for performing advanced analytics on the
+          extracted data.
         </p>
 
         <p>
-          This integrated approach significantly boosts productivity and decision-making across various industries by automating tasks such as meeting transcriptions, customer support, and data entry. By improving data accuracy and reducing manual workloads, organizations can gain actionable
-          insights that drive better business outcomes. Adopting these technologies not only streamlines operations but also positions businesses to leverage cutting-edge tools for enhanced efficiency and strategic advantage.
+          This integrated approach significantly boosts productivity and decision-making across various industries by
+          automating tasks such as meeting transcriptions, customer support, and data entry. By improving data accuracy
+          and reducing manual workloads, organizations can gain actionable
+          insights that drive better business outcomes. Adopting these technologies not only streamlines operations but
+          also positions businesses to leverage cutting-edge tools for enhanced efficiency and strategic advantage.
         </p>
       </div>
     </div>
   </div>
+
+  <footer class="footer">
+    <div class="social-media">
+      <img src="images/facebook.svg" alt="Facebook">
+      <img src="images/linkedin.png" alt="Twitter">
+      <img src="images/Instagram.png" alt="Instagram">
+      <!-- Add more social media icons as needed -->
+    </div>
+    <div class="copyright">
+      &copy; 2024 EC Group International. All rights reserved.
+    </div>
+  </footer>
 
   <span id="go_top" onclick="topFunction()">
     <i class="bi bi-chevron-up"></i>
