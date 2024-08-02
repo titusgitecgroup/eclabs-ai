@@ -33,7 +33,7 @@ code {
 }
 
 .container-blog,
-.container-blog {
+.container-body {
   max-width: 960px;
   margin-inline: auto;
 }
@@ -141,7 +141,8 @@ ul.list-styles li {
 
 .footer {
   margin-top: 70px;
-  background-color: #b4c4d5; /* Grayish blue color */
+  background-color: #b4c4d5;
+  /* Grayish blue color */
   color: #fff;
   height: 180px;
   display: flex;
@@ -156,7 +157,8 @@ ul.list-styles li {
 }
 
 .footer .logo img {
-  max-height: 100px; /* Adjust as needed */
+  max-height: 100px;
+  /* Adjust as needed */
 }
 
 .footer .social-media {
@@ -166,7 +168,8 @@ ul.list-styles li {
 
 .footer .social-media img {
   margin: 0 10px;
-  height: 30px; /* Adjust as needed */
+  height: 30px;
+  /* Adjust as needed */
 }
 
 .footer .copyright {
